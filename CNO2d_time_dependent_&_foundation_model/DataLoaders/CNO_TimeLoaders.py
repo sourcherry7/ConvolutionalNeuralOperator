@@ -1406,7 +1406,7 @@ class WaveSeismic(BaseTimeDataset):
         self.N_test = 240
         self.resolution = 128
 
-        data_path = self.data_path + "/wave_equation/seismic_20step.nc"
+        data_path = self.data_path + "/wave_layer_data.nc"
         self.reader = h5py.File(data_path, "r")
 
         self.constants = {
@@ -1478,7 +1478,7 @@ class WaveGaussians(BaseTimeDataset):
         self.N_test = 240
         self.resolution = 128
 
-        data_path = self.data_path + "/wave_equation/gaussians_15step.nc"
+        data_path = self.data_path + "/wave_gauss_data.nc"
         self.reader = h5py.File(data_path, "r")
 
         self.constants = {
