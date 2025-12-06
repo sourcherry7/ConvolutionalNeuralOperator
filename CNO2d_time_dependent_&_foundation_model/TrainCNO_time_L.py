@@ -40,7 +40,7 @@ if len(sys.argv) <= 2:
         "nl_dim": "23",           # If yes, which norm? '23'-IN, '023'-BN, '123'-LN
         
         "in_size": 128,           # Resolution of the computational grid
-        "activation": 'cno_lrelu',# cno_lrelu, cno_lrelu_torch or lrelu
+        "activation": 'cno_lrelu_torch',# cno_lrelu, cno_lrelu_torch or lrelu
         
         "is_att": False,          # Should we use attention in the bottleneck? You could add it!
         "patch_size" : 1,         # ViT parameters, if is_att == True

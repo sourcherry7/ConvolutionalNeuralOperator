@@ -1439,7 +1439,7 @@ class WaveSeismic(BaseTimeDataset):
         
 
         inputs = (
-            torch.from_numpy(self.reader["solution"][i + self.start, t1])
+            torch.from_numpy(self.reader["u"][i + self.start, t1])
             .type(torch.float32)
             .reshape(1, self.resolution, self.resolution)
         )
@@ -1449,7 +1449,7 @@ class WaveSeismic(BaseTimeDataset):
             .reshape(1, self.resolution, self.resolution)
         )
         labels = (
-            torch.from_numpy(self.reader["solution"][i + self.start, t2])
+            torch.from_numpy(self.reader["u"][i + self.start, t2])
             .type(torch.float32)
             .reshape(1, self.resolution, self.resolution)
         )
@@ -1511,7 +1511,7 @@ class WaveGaussians(BaseTimeDataset):
         
 
         inputs = (
-            torch.from_numpy(self.reader["solution"][i + self.start, t1])
+            torch.from_numpy(self.reader["u"][i + self.start, t1])
             .type(torch.float32)
             .reshape(1, self.resolution, self.resolution)
         )
@@ -1521,7 +1521,7 @@ class WaveGaussians(BaseTimeDataset):
             .reshape(1, self.resolution, self.resolution)
         )
         labels = (
-            torch.from_numpy(self.reader["solution"][i + self.start, t2])
+            torch.from_numpy(self.reader["u"][i + self.start, t2])
             .type(torch.float32)
             .reshape(1, self.resolution, self.resolution)
         )
