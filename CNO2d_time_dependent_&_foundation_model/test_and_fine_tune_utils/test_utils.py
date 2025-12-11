@@ -230,6 +230,9 @@ def _load_dict(files,
         _allowed = [1]
     d["allowed_tran"] = _allowed
     
+    if "exp" not in d:
+        d["exp"] = 1
+
     return d
 
 #------------------------------------------------
