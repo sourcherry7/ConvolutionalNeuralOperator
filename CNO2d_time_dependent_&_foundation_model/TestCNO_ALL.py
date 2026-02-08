@@ -222,7 +222,7 @@ def _evaulate_models(folders,
     
     # model_dirs = _list_models(folders, additional_flags) # This is the OG code, dirty fix right below (file structure)
     model_dirs = [
-        ("/cluster/home/svisnjic/Thalassa/results/checkpoints", "epoch=4-step=10625.ckpt")
+        ("/cluster/home/svisnjic/Thalassa/results/checkpoints", "epoch=33-step=9248.ckpt")
     ]
 
     
@@ -284,7 +284,7 @@ def _evaulate_models(folders,
             # Model init. and loading
             #########################
             device = 'cuda' if torch.cuda.is_available() else 'cpu'
-            model_file = folder + "/model123/" + _model_file
+            model_file = folder + "/model_0601/" + _model_file
             
             print(loader_dict["in_dim"], loader_dict["out_dim"], "DIMENSIONS")
             model = _initialize_model(loader_dict,
@@ -414,7 +414,7 @@ if __name__ == "__main__":
     # DIFFERENT EVALUATION SCHEMES (DIRECT, HETEROG. AR, HOMOG. AR)
     if not steady:
         # patterns = [[15], [2,2,2,1], [1, 1, 1, 1, 1, 1, 1]] OG code
-        patterns = [[15]]
+        patterns = [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [3, 3, 3, 3, 3], [5, 5, 5], [15]]
     else:
         patterns = [[1]]
     

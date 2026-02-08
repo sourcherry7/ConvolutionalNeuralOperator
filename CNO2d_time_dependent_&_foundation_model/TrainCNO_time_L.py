@@ -17,13 +17,13 @@ if len(sys.argv) <= 2:
     training_properties = {
         "learning_rate": 0.00075, 
         "weight_decay": 1e-6,
-        "scheduler_step": 1,
+        "scheduler_step": 10,
         "scheduler_gamma": 0.9,
-        "epochs": 5,
-        "batch_size": 64,         
+        "epochs": 100,
+        "batch_size": 16,         
         "time_steps": 15,         # How many time steps to select?
         "dt": 1,                  # What is the time step? (1 means include entire traj, 2 means taking every other step, etc.
-        "training_samples": 1000, # How many training samples?
+        "training_samples": 256, # How many training samples?
         "time_input": 1,          # Should we include time in the input channels?
         "allowed": 'all',         # All2ALL (train) - all , or One2All (train) - one2all, AR training - one
         "cluster": True,          # Something internal (don't bother)
@@ -166,7 +166,7 @@ model   = CNO_time(in_dim =  loader_dict["in_dim"],
 
 #---------------------------------------------------------
 
-ver = 123 # Just a random string to be added to the model name
+ver = "_1401" # Just a random string to be added to the model name
 
 checkpoint_callback = ModelCheckpoint(dirpath = folder+"/model"+str(ver), monitor='mean_val_l')
 early_part = 10

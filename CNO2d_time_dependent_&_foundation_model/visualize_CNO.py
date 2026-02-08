@@ -15,7 +15,7 @@ CHECKPOINTS_DIR = os.path.join(PROJECT_ROOT, "results/checkpoints")
 # The exact files seen in your screenshot
 TRAIN_FILE = os.path.join(CHECKPOINTS_DIR, "training_properties.txt")
 NET_FILE = os.path.join(CHECKPOINTS_DIR, "net_architecture.txt")
-CKPT_PATH = os.path.join(CHECKPOINTS_DIR, "model123", "epoch=4-step=10625.ckpt")
+CKPT_PATH = os.path.join(CHECKPOINTS_DIR, "model_0601", "epoch=33-step=9248.ckpt")
 
 WHICH_EXAMPLE = "wave_gauss"
 
