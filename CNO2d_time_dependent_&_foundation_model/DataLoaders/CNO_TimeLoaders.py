@@ -8,6 +8,7 @@ from torch.utils.data import Dataset
 import netCDF4 as nc
 from abc import ABC
 from typing import Optional
+import json
 
 #---------------------------------------------------
 # All the datasets (21 of them) are available at: _
@@ -1471,26 +1472,60 @@ class WaveSeismic(BaseTimeDataset):
 class WaveGaussians(BaseTimeDataset):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        assert self.max_num_time_steps * self.time_step_size <= 15
+        # Old original code : 
+        # assert self.max_num_time_steps * self.time_step_size <= 15
 
-        self.N_max = 10512
-        self.N_val = 60
-        self.N_test = 240
-        self.resolution = 128
+        # self.N_max = 10512
+        # self.N_val = 60
+        # self.N_test = 240
+        # self.resolution = 128
 
-        data_path = self.data_path + "/wave_gauss_data.nc"
+        # data_path = self.data_path + "/wave_gauss_data.nc"
+        # self.reader = h5py.File(data_path, "r")
+
+        # self.constants = {
+        #     "mean": 0.0334376316,
+        #     "std": 0.1171879068,
+        #     "mean_c": 2618.4593933,
+        #     "std_c": 601.51658913,
+        #     "time": 15.0,
+        # }
+
+        # self.input_dim = 2
+        # self.label_description = "[u],[c]"
+
+        # New updated code (suited for new file)
+        data_path = self.data_path + "/new_wave_gauss_data.h5"
         self.reader = h5py.File(data_path, "r")
 
+        tot_n_samples = self.reader['u'].shape[0]
+
+        train_val_test_scale_factor = tot_n_samples / 10512.0
+
+        self.N_max = tot_n_samples
+        self.N_val = int(60 * train_val_test_scale_factor)
+        self.N_test = int(240 * train_val_test_scale_factor)
+        self.resolution = self.reader['u'].shape[-1]
+
+        NORM_JSON_PATH = self.data_path + "/new_normalization_stats.json"
+        with open(NORM_JSON_PATH, "r") as f:
+            json_constants = json.load(f)
+
+
         self.constants = {
-            "mean": 0.0334376316,
-            "std": 0.1171879068,
-            "mean_c": 2618.4593933,
-            "std_c": 601.51658913,
-            "time": 15.0,
+            "mean": json_constants['mean_u'], # 0.0334376316,
+            "std": json_constants['std_u'], # 0.1171879068,
+            "mean_c": json_constants['mean_c'], # 2618.4593933,
+            "std_c": json_constants['std_c'], # 601.51658913,
+            "time": float(json_constants['time_steps']) # 15.0,
         }
 
         self.input_dim = 2
         self.label_description = "[u],[c]"
+        self.time_input = True
+
+        assert self.max_num_time_steps <= json_constants['time_steps']
+        assert self.max_num_time_steps * self.time_step_size <= 15
 
         self.post_init()
 

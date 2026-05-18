@@ -141,9 +141,10 @@ def _load_dict(files,
         d["separate"] = True
         d["separate_dim"] = [1,1]
         
-        d["nmax"] = 10512
+        d["nmax"] = int(10512 / 2)
         if "seismic" in which_example:
             d["step_max"] = 20
+            d["nmax"] = 10512
         else:
             d["step_max"] = 15
 
@@ -301,6 +302,9 @@ def _load_data(which,
     
     if "train" in which_loader[:5]:
         samples = loader_dict["num_samples"]
+    elif "test" in which_loader:
+        # Use num_test if available, otherwise fallback to a default like 120
+        samples = loader_dict.get("num_test", loader_dict.get("num_trajectories", 120))
     else:
         samples = 1
     loader_dict['num_samples'] = samples
@@ -345,7 +349,7 @@ def _list_models(folders,
     models = []
     for dir in model_dirs:
         
-        model_dir = dir + "/model_1401"
+        model_dir = dir + "/model_l;l;"
         _potential_files = os.listdir(model_dir)
         for file in _potential_files:
             _pass = True
