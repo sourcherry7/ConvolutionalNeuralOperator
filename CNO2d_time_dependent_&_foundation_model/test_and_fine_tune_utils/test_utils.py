@@ -303,7 +303,7 @@ def _load_data(which,
     if "train" in which_loader[:5]:
         samples = loader_dict["num_samples"]
     elif "test" in which_loader:
-        # Use num_test if available, otherwise fallback to a default like 120
+        # Test split: num_test trajectories if given (default 120)
         samples = loader_dict.get("num_test", loader_dict.get("num_trajectories", 120))
     else:
         samples = 1

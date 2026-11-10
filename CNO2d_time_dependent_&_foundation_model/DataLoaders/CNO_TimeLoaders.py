@@ -1491,11 +1491,11 @@ class WaveGaussians(BaseTimeDataset):
 
 
         self.constants = {
-            "mean": json_constants['mean_u'], # 0.0334376316,
-            "std": json_constants['std_u'], # 0.1171879068,
-            "mean_c": json_constants['mean_c'], # 2618.4593933,
-            "std_c": json_constants['std_c'], # 601.51658913,
-            "time": float(json_constants['time_steps']) # 15.0,
+            "mean": json_constants['mean_u'],
+            "std": json_constants['std_u'],
+            "mean_c": json_constants['mean_c'],
+            "std_c": json_constants['std_c'],
+            "time": float(json_constants['time_steps']),
         }
 
         self.input_dim = 2
