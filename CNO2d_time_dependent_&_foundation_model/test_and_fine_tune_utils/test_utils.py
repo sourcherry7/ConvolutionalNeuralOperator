@@ -349,7 +349,7 @@ def _list_models(folders,
     models = []
     for dir in model_dirs:
         
-        model_dir = dir + "/model_l;l;"
+        model_dir = dir + "/model123"
         _potential_files = os.listdir(model_dir)
         for file in _potential_files:
             _pass = True

@@ -1407,7 +1407,7 @@ class WaveSeismic(BaseTimeDataset):
         self.N_test = 240
         self.resolution = 128
 
-        data_path = self.data_path + "/wave_layer_data.nc"
+        data_path = self.data_path + "/wave_equation/seismic_20step.nc"
         self.reader = h5py.File(data_path, "r")
 
         self.constants = {
@@ -1440,7 +1440,7 @@ class WaveSeismic(BaseTimeDataset):
         
 
         inputs = (
-            torch.from_numpy(self.reader["u"][i + self.start, t1])
+            torch.from_numpy(self.reader["solution"][i + self.start, t1])
             .type(torch.float32)
             .reshape(1, self.resolution, self.resolution)
         )
@@ -1450,7 +1450,7 @@ class WaveSeismic(BaseTimeDataset):
             .reshape(1, self.resolution, self.resolution)
         )
         labels = (
-            torch.from_numpy(self.reader["u"][i + self.start, t2])
+            torch.from_numpy(self.reader["solution"][i + self.start, t2])
             .type(torch.float32)
             .reshape(1, self.resolution, self.resolution)
         )
@@ -1472,29 +1472,7 @@ class WaveSeismic(BaseTimeDataset):
 class WaveGaussians(BaseTimeDataset):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        # Old original code : 
-        # assert self.max_num_time_steps * self.time_step_size <= 15
-
-        # self.N_max = 10512
-        # self.N_val = 60
-        # self.N_test = 240
-        # self.resolution = 128
-
-        # data_path = self.data_path + "/wave_gauss_data.nc"
-        # self.reader = h5py.File(data_path, "r")
-
-        # self.constants = {
-        #     "mean": 0.0334376316,
-        #     "std": 0.1171879068,
-        #     "mean_c": 2618.4593933,
-        #     "std_c": 601.51658913,
-        #     "time": 15.0,
-        # }
-
-        # self.input_dim = 2
-        # self.label_description = "[u],[c]"
-
-        # New updated code (suited for new file)
+        # HDF5 Wave-Gauss data: u [N, T+1, H, W], c [N, H, W]; normalization stats from JSON.
         data_path = self.data_path + "/new_wave_gauss_data.h5"
         self.reader = h5py.File(data_path, "r")
 

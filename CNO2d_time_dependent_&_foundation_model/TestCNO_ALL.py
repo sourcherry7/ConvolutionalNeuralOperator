@@ -220,11 +220,7 @@ def _evaulate_models(folders,
                     new_in_dim  = 5,
                     new_out_dim = 4):
     
-    # model_dirs = _list_models(folders, additional_flags) # This is the OG code, dirty fix right below (file structure)
-    model_dirs = [
-        ("/cluster/home/svisnjic/Thalassa/results/checkpoints", "epoch=33-step=9248.ckpt")
-    ]
-
+    model_dirs = _list_models(folders, additional_flags)
     
         
     if len(model_dirs) == 0:
@@ -284,7 +280,7 @@ def _evaulate_models(folders,
             # Model init. and loading
             #########################
             device = 'cuda' if torch.cuda.is_available() else 'cpu'
-            model_file = folder + "/model_0601/" + _model_file
+            model_file = folder + "/model123/" + _model_file
             
             print(loader_dict["in_dim"], loader_dict["out_dim"], "DIMENSIONS")
             model = _initialize_model(loader_dict,
@@ -375,7 +371,7 @@ if __name__ == "__main__":
     # "airfoil", "poisson_gauss", "helmholtz"
     
     # WHAT IS THE EXPERIMENT?
-    which_example = "wave_gauss"
+    which_example = "kolmogorov"
     
     # IS THE MODEL FINETUNED?
     fine_tuned = False
@@ -384,7 +380,7 @@ if __name__ == "__main__":
     if not fine_tuned:
         
         # PROVIDE THE FOLDER WITH ALL THE MODELS FOR SCALING LAW::
-        folders = "/cluster/home/svisnjic/Thalassa/results/checkpoints" # "---- PROVIDE THE FOLDER PATH ----"
+        folders = "---- PROVIDE THE FOLDER PATH ----"
         training_folder = None # Keep it None
     
     else:
@@ -400,7 +396,7 @@ if __name__ == "__main__":
     
     
     folder_pattern = "errors" # WHAT IS THE NAME OF THE FOLDER FOR SAVING ERRORS?
-    steps   = 15               # HOW MANY STEPS ARE THERE IN THE TRAJECTORY?
+    steps   = 7               # HOW MANY STEPS ARE THERE IN THE TRAJECTORY?
     additional_flags =  []    # ANY ADDITIONAL CONSTRAINTS IN THE NAMES OF THE FILES?
     is_masked = False         # ARE I/O MASKED?
     write_in_file = True      # SHOULD WE WRITE THE ERRORS IN THE FILE?
@@ -413,8 +409,7 @@ if __name__ == "__main__":
     
     # DIFFERENT EVALUATION SCHEMES (DIRECT, HETEROG. AR, HOMOG. AR)
     if not steady:
-        # patterns = [[15], [2,2,2,1], [1, 1, 1, 1, 1, 1, 1]] OG code
-        patterns = [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [3, 3, 3, 3, 3], [5, 5, 5], [15]]
+        patterns = [[7], [2,2,2,1], [1, 1, 1, 1, 1, 1, 1]]
     else:
         patterns = [[1]]
     

@@ -1,3 +1,4 @@
+import os
 from DataLoaders.CNO_TimeLoaders import BrownianBridgeTimeDataset, VortexSheetTimeDataset, SinesTimeDataset, PiecewiseConstantsTimeDataset, GaussiansTimeDataset, ComplicatedShearLayerTimeDataset, KelvinHelmholtzTimeDataset, RiemannTimeDataset, RiemannCurvedTimeDataset, EulerGaussTimeDataset, RiemannKHTimeDataset, RichtmyerMeshkov, RayleighTaylor, PoissonGaussians,  Helmholtz, AllenCahn, WaveSeismic, WaveGaussians,PiecewiseConstantsTraceTimeDataset, KolmogorovFlow, Airfoil
 
 def _load_dataset(dic, 
@@ -241,7 +242,7 @@ def _load_dataset(dic,
                                     resolution = 128,
                                     in_dist = True,
                                     num_trajectories = num_samples,
-                                    data_path = "/cluster/home/svisnjic/Thalassa/data", # "---- PROVIDE THE FOLDER PATH ----",
+                                    data_path = "---- PROVIDE THE FOLDER PATH ----",
                                     time_input = dic["time_input"],
                                     masked_input = masked_input,
                                     allowed_transitions = dic["allowed_tran"])
@@ -254,7 +255,7 @@ def _load_dataset(dic,
                                         resolution = 128,
                                         in_dist = True,
                                         num_trajectories = num_samples,
-                                        data_path = "/cluster/home/svisnjic/Thalassa/data", # "---- PROVIDE THE FOLDER PATH ----",
+                                        data_path = os.environ.get("CNO_DATA_PATH", "---- PROVIDE THE FOLDER PATH ----"),
                                         time_input = dic["time_input"],
                                         masked_input = masked_input,
                                         allowed_transitions = dic["allowed_tran"])
